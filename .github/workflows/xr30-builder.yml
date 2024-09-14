@@ -1,4 +1,4 @@
-name: Build_mt7981_xr30
+name: Build_mt7986_r3mini
 
 on: 
   repository_dispatch:
@@ -13,7 +13,7 @@ on:
 #    types: [started]
 
 jobs:
-  Build_mt7981_xr30:
+  Build_mt7986_r3mini:
     runs-on: ubuntu-20.04
     steps:
     - name: Clone Repository
@@ -41,7 +41,7 @@ jobs:
         
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/sony850218/cmcc-xr30
+        REPO_URL: https://github.com/sony850218/r3mini
         REPO_BRANCH: openwrt-21.02
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
@@ -54,9 +54,9 @@ jobs:
 
         ./scripts/feeds install -a    
         
-    - name: Configuration Customization - Build_mt7981_xr30
+    - name: Configuration Customization - Build_mt7986_r3mini
       env:
-        CONFIG_FILE: './config/xr30.config'
+        CONFIG_FILE: './config/r3mini.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
@@ -86,30 +86,26 @@ jobs:
         md5=`echo ${md5:0:10}`
         }
         
-        rom=openwrt/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-cmcc_xr30-squashfs-factory.bin
+        rom=openwrt/bin/targets/mediatek/mt7986/immortalwrt-mediatek-mt7986-BPI-R3MINI-EMMC-squashfs-sysupgrade.bin
         getmd5 $rom        
-        cp -a $rom ./ARM_Out/immortalwrt-mediatek-mt7981-cmcc_xr30-squashfs-factory.bin
-        
-        rom=openwrt/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-cmcc_xr30-squashfs-sysupgrade.bin
-        getmd5 $rom        
-        cp -a $rom ./ARM_Out/immortalwrt-mediatek-mt7981-cmcc_xr30-squashfs-sysupgrade.bin
+        cp -a $rom ./ARM_Out/immortalwrt-mediatek-mt7986-BPI-R3MINI-EMMC-squashfs-sysupgrade.bin
                
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
       with:
-        name: CMCC-XR30-OpenWrt
+        name: r3mini-OpenWrt
         path: ARM_Out/*.bin
 
     - name: Upload config
       uses: actions/upload-artifact@main
       with:
-        name: xr30-config
+        name: r3mini-config
         path: openwrt/.config
 
     - name: Upload Packages
       uses: actions/upload-artifact@main
       with:
-        name: CMCC-XR30-Packages
+        name: r3mini-Packages
         path: openwrt/bin/packages
         
     - name: Generate Tag & Release Name
