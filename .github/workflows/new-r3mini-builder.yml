@@ -41,8 +41,8 @@ jobs:
         
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/sony850218/r3mini
-        REPO_BRANCH: openwrt-21.02
+        REPO_URL: https://github.com/sony850218/immortalwrt
+        REPO_BRANCH: openwrt-23.05
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
@@ -86,9 +86,9 @@ jobs:
         md5=`echo ${md5:0:10}`
         }
         
-        rom=openwrt/bin/targets/mediatek/mt7986/immortalwrt-mediatek-mt7986-BPI-R3MINI-EMMC-squashfs-sysupgrade.bin
+        rom=openwrt/bin/targets/mediatek/filogic/immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-squashfs-sysupgrade.itb
         getmd5 $rom        
-        cp -a $rom ./ARM_Out/immortalwrt-mediatek-mt7986-BPI-R3MINI-EMMC-squashfs-sysupgrade.bin
+        cp -a $rom ./ARM_Out/immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-squashfs-sysupgrade.itb
                
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
