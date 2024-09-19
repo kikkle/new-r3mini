@@ -94,7 +94,7 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: new-r3mini-OpenWrt
-        path: ARM_Out/*.bin
+        path: ARM_Out/*
 
     - name: Upload config
       uses: actions/upload-artifact@main
