@@ -93,13 +93,13 @@ jobs:
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
       with:
-        name: new-r3mini-OpenWrt
+        name: r3mini-OpenWrt
         path: ARM_Out/*.itb
 
     - name: Upload config
       uses: actions/upload-artifact@main
       with:
-        name: new-r3mini-config
+        name: r3mini-config
         path: openwrt/.config
 
     - name: Upload Packages
