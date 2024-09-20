@@ -1,4 +1,4 @@
-name: Build_mt7986_new-r3mini
+name: Build_mt7986_r3mini
 
 on: 
   repository_dispatch:
@@ -13,7 +13,7 @@ on:
 #    types: [started]
 
 jobs:
-  Build_mt7986_new-r3mini:
+  Build_mt7986_r3mini:
     runs-on: ubuntu-20.04
     steps:
     - name: Clone Repository
@@ -54,9 +54,9 @@ jobs:
 
         ./scripts/feeds install -a    
         
-    - name: Configuration Customization - Build_mt7986_new-r3mini
+    - name: Configuration Customization - Build_mt7986_r3mini
       env:
-        CONFIG_FILE: './config/new-r3mini.config'
+        CONFIG_FILE: './config/r3mini.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
@@ -105,7 +105,7 @@ jobs:
     - name: Upload Packages
       uses: actions/upload-artifact@main
       with:
-        name: new-r3mini-Packages
+        name: r3mini-Packages
         path: openwrt/bin/packages
         
     - name: Generate Tag & Release Name
@@ -113,7 +113,7 @@ jobs:
       run: |
         time=$(date +%Y%m%d%H%M%S)
         release_tag="$time"
-        release_name="ImmortalWrt-new-r3mini-$(date +%Y%m%d)"
+        release_name="ImmortalWrt-r3mini-$(date +%Y%m%d)"
         echo "release_name=$release_name" >> $GITHUB_OUTPUT
         echo "release_tag=$release_tag" >> $GITHUB_OUTPUT      
 
